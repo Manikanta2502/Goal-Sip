@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Financial Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, button {
+            margin-bottom: 10px;
+        }
+        .goal {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Financial Planner</h1>
+    <form id="planner-form">
+        <label for="salary">Monthly Salary:</label>
+        <input type="number" id="salary" required>
+
+        <label for="expenses">Monthly Living Expenses:</label>
+        <input type="number" id="expenses" required>
+
+        <label for="wants">Monthly Spending on Wants:</label>
+        <input type="number" id="wants">
+
+        <h2>Goals</h2>
+        <div id="goals-container"></div>
+        <button type="button" id="add-goal">Add Goal</button>
+
+        <label for="expected_return">Expected Annual Return (%):</label>
+        <input type="number" id="expected_return" required>
+
+        <label for="step_up">Annual Step-Up (%):</label>
+        <input type="number" id="step_up">
+
+        <button type="button" id="calculate">Calculate</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        let goalCount = 0;
+
+        document.getElementById('add-goal').addEventListener('click', () => {
+            const container = document.getElementById('goals-container');
+            const goalDiv = document.createElement('div');
+            goalDiv.classList.add('goal');
+            goalDiv.innerHTML = `
+                <label>Goal Name:</label>
+                <input type="text" name="goal-name" required>
+                <label>Target Amount:</label>
+                <input type="number" name="goal-amount" required>
+                <label>Timeframe (Years):</label>
+                <input type="number" name="goal-time" required>
+            `;
+            container.appendChild(goalDiv);
+            goalCount++;
+        });
+
+        document.getElementById('calculate').addEventListener('click', () => {
+            const salary = document.getElementById('salary').value;
+            const expenses = document.getElementById('expenses').value;
+            const wants = document.getElementById('wants').value || 0;
+            const expectedReturn = document.getElementById('expected_return').value;
+            const stepUp = document.getElementById('step_up').value || 0;
+
+            const goals = Array.from(document.querySelectorAll('.goal')).map(goal => ({
+                name: goal.querySelector('input[name="goal-name"]').value,
+                amount: goal.querySelector('input[name="goal-amount"]').value,
+                time: goal.querySelector('input[name="goal-time"]').value,
+            }));
+
+            fetch('/calculate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ salary, expenses, wants, expected_return: expectedReturn, step_up: stepUp, goals }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = `
+                    <h2>Results</h2>
+                    <h3>Regular SIP</h3>
+                    ${data.regular_sip.map(g => `<p>${g.name}: ₹${g.investment}</p>`).join('')}
+                    <h3>Step-Up SIP</h3>
+                    ${data.step_up_sip.map(g => `<p>${g.name}: ₹${g.investment}</p>`).join('')}
+                    <p>Total Regular SIP: ₹${data.totals.total_regular}</p>
+                    <p>Remaining Income (Regular SIP): ₹${data.totals.remaining_regular}</p>
+                    <p>Total Step-Up SIP: ₹${data.totals.total_step_up}</p>
+                    <p>Remaining Income (Step-Up SIP): ₹${data.totals.remaining_step_up}</p>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>

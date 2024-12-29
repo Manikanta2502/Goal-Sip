@@ -1,0 +1,165 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #f5f7fa, #e4e8ed);
+    color: #333;
+}
+
+/* Container */
+.container {
+    max-width: 700px;
+    width: 90%;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Typography */
+h1 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center; /* Center title */
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #34495e;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+/* Section Styles */
+.section {
+    margin-bottom: 2rem; /* Space between sections */
+    padding: 20px; /* Padding inside sections */
+    background-color: #f9f9f9; /* Light background for sections */
+    border-radius: 10px; /* Rounded corners for sections */
+}
+
+/* Form Elements */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #34495e;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #3498db; /* Focused border color */
+}
+
+/* Buttons */
+button {
+    background-color: #3498db; /* Primary button color */
+    color: #fff; /* Button text color */
+    padding: 0.75rem; /* Button padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 1rem; /* Button text size */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+    background-color: #2980b9; /* Darker shade on hover */
+}
+
+/* Goal Section */
+.goal-section {
+   margin-bottom: 2rem; /* Space below goal section */
+}
+
+.goal {
+   background-color: #f7f9fa; /* Light background for goals */
+   border-radius: 10px; /* Rounded corners for goals */
+   padding: 1rem; /* Padding inside goal boxes */
+   margin-bottom: .5rem; /* Space between goals */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+   position: relative; /* Positioning for remove button */
+}
+
+.goal label {
+   font-size: .8rem; /* Smaller label size in goals */
+}
+
+/* Remove Goal Button */
+.remove-goal {
+   position:absolute; 
+   top:.5rem; 
+   right:.5rem; 
+   background:#e74c3c; 
+   color:white; 
+   padding:.25rem .5rem; 
+   border:none; 
+   border-radius:.25rem; 
+   font-size:.8rem; 
+   cursor:pointer; 
+}
+
+.remove-goal:hover {
+   background:#c0392b; /* Darker red on hover for remove button */
+}
+
+/* Add Goal Button Styles*/
+#add-goal {
+   background-color:#1abc9c; 
+   color:white; 
+   padding:.75rem .75rem; 
+   border-radius:.25rem; 
+   font-size:.9rem; 
+}
+
+#add-goal:hover {
+   background-color:#16a085; /* Darker shade on hover for add button */
+}
+
+/* Results Section */
+#results {
+   background-color:#f1f4f6; 
+   border-radius:.625rem; 
+   padding:.75rem ; 
+   box-shadow:.125rem .125rem .25rem rgba(0,0,0,.15); 
+   margin-top:.75rem ; 
+}
+
+.result-item {
+   margin-bottom:.5rem ; 
+   font-size:.9rem ; 
+}
+
+.result-item span {
+   color:#2c3e50 ; 
+}
+
+/* Responsiveness */
+@media (max-width :768px) {
+.container {
+padding :20px ; 
+}
+h1 {
+font-size :1.75rem ; 
+}
+}
