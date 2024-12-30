@@ -1,8 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 from flask_lambda import FlaskLambda
 import math
+import os
 
-app = FlaskLambda(__name__)
+
+app = Flask(__name__, template_folder=os.path.abspath('../templates'),
+            static_folder=os.path.abspath('../static'))
+
+
 
 # (Your existing Flask code goes here unchanged)
 
